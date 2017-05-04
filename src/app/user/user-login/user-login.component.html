@@ -1,3 +1,31 @@
-<p>
-  user-login works!
-</p>
+<div class="col-md-4 col-md-offset-4">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">Login via site</h3>
+    </div>
+    <div class="panel-body">
+      <form #formData='ngForm' (ngSubmit)="loginWithEmail(formData)">
+        <fieldset>
+          <div class="form-group">
+            <input class="form-control" placeholder="yourmail@example.com" [(ngModel)]="email" name="email" type="text" required>
+          </div>
+          <div class="form-group">
+            <input class="form-control" placeholder="Password" [(ngModel)]="password" name="password" type="password" value="" required>
+          </div>
+          <button ype="submit" [disabled]="!formData.valid" class="btn btn-lg btn-success btn-block">Login</button>
+          <br>
+          <p class="text-center"><a (click)="logout()" class="clickable">Logout</a></p>
+          <p class="error text-danger" *ngIf="error">{{ error }}</p>
+        </fieldset>
+      </form>
+      <hr/>
+      <span class="line"></span>
+        <h4 class="text-center">OR</h4>
+        <br/>
+      <span class="line"></span>
+      <button (click)="loginWithGoogle()" class="btn btn-lg btn-google btn-block"><i class="icon-social-google"></i> Log in with Google</button>
+      <br>
+      <p class="text-center"><a routerLink="/register" routerLinkActive="active">Register</a></p>
+    </div>
+  </div>
+</div>

@@ -1,16 +1,18 @@
 <nav class="navbar navbar-default">
     <div class="container-fluid">
         <div class="navbar-header">
-            <a href="#" class="navbar-brand">Running Log</a>
+            <a *ngIf="name" routerLink="/dashboard" routerLinkActive="active" class="navbar-brand">{{name }}'s Running Log</a>
+            <a *ngIf="!name" routerLink="/dashboard" routerLinkActive="active" class="navbar-brand">Your Running Log</a>
         </div>
 
         <div class="navbar-default">
             <ul class="nav navbar-nav">
                 <li>
-                    <a href="#">Test</a>
+                    <a routerLink="/dashboard" routerLinkActive="active">Dashboard</a>
                 </li>
                 <li>
-                    <a href="#">Test 1</a>
+                    <a *ngIf="!loggedIn" routerLink="/login" routerLinkActive="active">Login</a>
+                    <a *ngIf="loggedIn" (click)="logout()" style="cursor: pointer">Logout</a>
                 </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">

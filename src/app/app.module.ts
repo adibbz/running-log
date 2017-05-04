@@ -8,6 +8,11 @@ import { AngularFireModule, AuthProviders, AuthMethods } from 'angularfire2';
 import { HeaderComponent } from './header/header.component';
 import { RunListComponent } from './runs/run-list/run-list.component';
 import { UserLoginComponent } from './user/user-login/user-login.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+
+import { RouterModule, Routes } from '@angular/router';
+import { UserSignupComponent } from './user/user-signup/user-signup.component';
+import { AuthGuard } from './auth.service';
 
 // AngularFire Config
 export const firebaseConfig = {
@@ -21,23 +26,38 @@ export const firebaseConfig = {
 //Auth(Google enabled in FB console)
 const firebaseAuthConfig = {
   provider: AuthProviders.Google,
-  method: AuthMethods.Redirect
+  method: AuthMethods.Popup
 };
+
+//Routing
+const appRoutes: Routes = [
+  { path: 'dashboard', component: RunListComponent, canActivate: [AuthGuard] },
+  { path: 'login', component: UserLoginComponent },
+  { path: 'register', component: UserSignupComponent },
+  { path: '',
+      redirectTo: '/login',
+      pathMatch: 'full'
+  },
+  { path: '**', component: PageNotFoundComponent }
+];
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     RunListComponent,
-    UserLoginComponent
+    UserLoginComponent,
+    PageNotFoundComponent,
+    UserSignupComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
-    AngularFireModule.initializeApp(firebaseConfig, firebaseAuthConfig)
+    AngularFireModule.initializeApp(firebaseConfig, firebaseAuthConfig),
+    RouterModule.forRoot(appRoutes)
   ],
-  providers: [],
+  providers: [AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
