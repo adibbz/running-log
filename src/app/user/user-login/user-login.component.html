@@ -14,7 +14,6 @@
           </div>
           <button ype="submit" [disabled]="!formData.valid" class="btn btn-lg btn-success btn-block">Login</button>
           <br>
-          <p class="text-center"><a (click)="logout()" class="clickable">Logout</a></p>
           <p class="error text-danger" *ngIf="error">{{ error }}</p>
         </fieldset>
       </form>

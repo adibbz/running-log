@@ -12,7 +12,8 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 
 import { RouterModule, Routes } from '@angular/router';
 import { UserSignupComponent } from './user/user-signup/user-signup.component';
-import { AuthGuard } from './auth.service';
+import { AuthService } from './auth.service';
+import { AuthGuard } from './auth.guard';
 
 // AngularFire Config
 export const firebaseConfig = {
@@ -57,7 +58,7 @@ const appRoutes: Routes = [
     AngularFireModule.initializeApp(firebaseConfig, firebaseAuthConfig),
     RouterModule.forRoot(appRoutes)
   ],
-  providers: [AuthGuard],
+  providers: [AuthService, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

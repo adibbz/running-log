@@ -62,10 +62,4 @@ export class UserLoginComponent {
      this.error = err;
     })
   }
-
-  logout() {
-    this.af.auth.logout().then((success) => {
-      alert("you're logged out");
-    });
-  }
 }
