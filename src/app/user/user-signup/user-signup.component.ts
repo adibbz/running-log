@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AngularFire, AuthProviders, AuthMethods } from 'angularfire2';
-import { Router } from '@angular/router';
+import { AuthService } from '../../auth.service';
 
 @Component({
   selector: 'app-user-signup',
@@ -8,27 +7,19 @@ import { Router } from '@angular/router';
   styleUrls: ['./user-signup.component.css']
 })
 export class UserSignupComponent {
-  state: string = '';
   error: any;
+  name: string;
   email: string;
   password: string;
 
-  constructor(public af: AngularFire,private router: Router) {}
+  constructor(public auth: AuthService) {}
 
   onSubmit(formData) {
-    if(formData.valid) {
-      console.log(formData.value);
-      this.af.auth.createUser({
-        email: formData.value.email,
-        password: formData.value.password
-      }).then((success) => {
-        console.log(success);
-        this.router.navigate(['/login'])
-      }).catch((err) => {
-        console.log(err);
-        this.error = err;
-      })
-    }
+    this.auth.register(formData)
+    .catch((err) => {
+       console.log(err);
+       this.error = err;
+    });
   }
 
 }

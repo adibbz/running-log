@@ -1,0 +1,12 @@
+.navbar {
+  margin-bottom: 0;
+}
+
+i:before {
+  margin-right: 5px;
+  display: inline-block;
+}
+
+i.icon-logout:before {
+  transform: scale(-1);
+}

@@ -5,11 +5,12 @@ import { Observable } from "rxjs/Rx";
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/take';
+import { AuthService } from "./auth.service";
 
 @Injectable()
 export class AuthGuard implements CanActivate {
 
-    constructor(private auth: AngularFireAuth, private router: Router) {}
+    constructor(private auth: AngularFireAuth, private router: Router, private authService: AuthService) {}
 
     canActivate(): Observable<boolean> {
       return Observable.from(this.auth)
@@ -18,6 +19,8 @@ export class AuthGuard implements CanActivate {
         .do(authenticated => {
       if
         (!authenticated) this.router.navigate([ '/login' ]);
+      else
+        this.authService.isAuthenticated();
       })
     }
 

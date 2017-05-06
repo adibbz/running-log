@@ -14,7 +14,9 @@ import { RouterModule, Routes } from '@angular/router';
 import { UserSignupComponent } from './user/user-signup/user-signup.component';
 import { AuthService } from './auth.service';
 import { AuthGuard } from './auth.guard';
-
+import { DropdownDirective } from './shared/dropdown.directive';
+import { SidebarComponent } from './sidebar/sidebar.component';
+import { UserEditComponent } from './user/user-edit/user-edit.component';
 // AngularFire Config
 export const firebaseConfig = {
   apiKey: 'AIzaSyCbT3gX5SlbnnjdsOAiZQb4ADPSqBqBK4A',
@@ -34,6 +36,7 @@ const firebaseAuthConfig = {
 const appRoutes: Routes = [
   { path: 'dashboard', component: RunListComponent, canActivate: [AuthGuard] },
   { path: 'login', component: UserLoginComponent },
+  { path: 'edit-user', component: UserEditComponent },
   { path: 'register', component: UserSignupComponent },
   { path: '',
       redirectTo: '/login',
@@ -49,7 +52,10 @@ const appRoutes: Routes = [
     RunListComponent,
     UserLoginComponent,
     PageNotFoundComponent,
-    UserSignupComponent
+    UserSignupComponent,
+    DropdownDirective,
+    SidebarComponent,
+    UserEditComponent
   ],
   imports: [
     BrowserModule,
