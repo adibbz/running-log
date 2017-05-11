@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {AngularFire, FirebaseListObservable} from 'angularfire2';
+import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
 
 @Component({
   selector: 'app-run-list',
@@ -7,18 +7,18 @@ import {AngularFire, FirebaseListObservable} from 'angularfire2';
   styleUrls: ['./run-list.component.css']
 })
 export class RunListComponent implements OnInit {
-  items: FirebaseListObservable<any>;
+  runs: FirebaseListObservable<any>;
 
-  constructor(af: AngularFire) {
-    this.items = af.database.list('/runs');
+  constructor(db: AngularFireDatabase) {
+    this.runs = db.list('/runs');
   }
 
   addItem(newDate: string, newDistance: string, newTime: string) {
-    this.items.push({ date: newDate, distance: newDistance, time: newTime });
+    this.runs.push({ date: newDate, distance: newDistance, time: newTime });
   }
 
   deleteItem(key: string) {
-    this.items.remove(key);
+    this.runs.remove(key);
   }
 
   ngOnInit() {

@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { AngularFire, AuthProviders, AuthMethods } from 'angularfire2';
 import { AuthService } from '../auth.service';
 
 @Component({
@@ -12,7 +11,7 @@ export class HeaderComponent implements OnInit {
   name: any;
   loggedIn: boolean = false;
 
-  constructor(public af: AngularFire, private auth: AuthService) {}
+  constructor(private auth: AuthService) {}
 
   logout() {
     this.auth.logout().catch((err) => {

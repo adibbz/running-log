@@ -1,4 +1,4 @@
-<pre>{{ items | async | json }}</pre>
+<pre>{{ runs | async | json }}</pre>
 <div class="row">
   <div class="col-lg-8">
       <form class="form-horizontal" id="runForm" name="runForm">
@@ -40,7 +40,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let run of items | async">
+    <tr *ngFor="let run of runs | async">
       <td>{{run.$key}}</td>
       <td>{{run.date}}</td>
       <td>{{run.distance}}</td>

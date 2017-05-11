@@ -16,10 +16,10 @@ export class UserSignupComponent {
 
   onSubmit(formData) {
     this.auth.register(formData)
-    .catch((err) => {
-       console.log(err);
-       this.error = err;
-    });
+    // .catch((err) => {
+    //    console.log(err);
+    //    this.error = err;
+    // });
   }
 
 }
