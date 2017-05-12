@@ -20,7 +20,7 @@ export class AuthService {
     if(formData.valid) {
       this.afAuth.auth.signInWithEmailAndPassword(formData.value.email,formData.value.password)
       .then((success) => {
-        localStorage.setItem('loggedInUserName', formData.value.name);
+        localStorage.setItem('loggedInUserName', success.displayName);
         this.router.navigate(['/dashboard']);
       }).catch((err) => {
         alert(err.message);
@@ -55,37 +55,26 @@ export class AuthService {
   }
 
   register(formData) {
-    //  if(formData.valid) {
-    //   return this.afAuth.auth.createUser({
-    //     email: formData.value.email,
-    //     password: formData.value.password
-    //   }).then((user) => {
-    //       return this.db.object(`/users/${user.uid}`).update({
-    //         name: formData.value.name
-    //       });
-    //   }).then((success) => {
-    //     this.router.navigate(['/login'])
-    //   })
-    // }
+     if(formData.valid) {
+      this.afAuth.auth.createUserWithEmailAndPassword(formData.value.email, formData.value.password)
+      .then((user) => {
+          this.db.object(`/users/${user.uid}`).update({
+            name: formData.value.name
+          });
+          this.router.navigate(['./login']);
+      })
+      .catch(function(error) {
+        // Handle Errors here.
+        //var errorCode = error.code;
+        var errorMessage = error.message;
+        alert(errorMessage);
+        // ...
+      })
+    }
   }
 
   isAuthenticated(): Observable<any> {
     return this.afAuth.authState;
-  //   this.afAuth.authState.subscribe(user => {
-  //     if(user) {
-  //       // user logged in
-  //       const uid = user.uid;
-  //       this.user = this.db.object(`/users/${uid}`)
-  //         .subscribe(user => {
-  //             localStorage.setItem('loggedInUserName', user.name);
-  //         });
-  //         return true;
-  //     }
-  //     else {
-  //       // user not logged in
-  //       return false;
-  //     }
-  //   });
   }
 
 }

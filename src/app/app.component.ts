@@ -6,7 +6,7 @@ import { Subscription } from 'rxjs/Subscription';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit{
   private sub: Subscription;
@@ -17,7 +17,9 @@ export class AppComponent implements OnInit{
   ngOnInit() {
     this.sub = this.authService.isAuthenticated().subscribe(authResp => {
       if(authResp) {
-        this.isLoggedIn = true;
+          if(localStorage.getItem('loggedInUserName') !== null) {
+            this.isLoggedIn = true
+          }
       } else {
         this.isLoggedIn = false;
       }

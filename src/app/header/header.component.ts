@@ -4,12 +4,12 @@ import { AuthService } from '../auth.service';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css']
+  styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
   error: any;
   name: any;
-  loggedIn: boolean = false;
+  loggedIn: boolean = true;
 
   constructor(private auth: AuthService) {}
 
