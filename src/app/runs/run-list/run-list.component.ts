@@ -12,10 +12,10 @@ export class RunListComponent implements OnInit {
   currentUserID: string;
   runModel: Run;
 
-  constructor(private db: AngularFireDatabase, private auth: AuthService) { }
+  constructor(private db: AngularFireDatabase, private authService: AuthService) { }
 
   ngOnInit() {
-    this.auth.isAuthenticated()
+    this.authService.getAuthState()
       .subscribe((user) => {
         if (user) {
           this.currentUserID = user.uid;

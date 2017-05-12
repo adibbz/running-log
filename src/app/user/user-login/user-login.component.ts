@@ -14,27 +14,21 @@ export class UserLoginComponent implements OnInit, OnDestroy {
   email: string;
   password: string;
 
-  constructor(private auth: AuthService, private router: Router) {}
+  constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit() {
     document.body.classList.add('login-bg');
-    this.auth.isAuthenticated()
-      .subscribe((user) => {
-        if(user) {
-          // Not the best way to handle but current fix to check if coming from /register
-          if(localStorage.getItem('loggedInUserName') !== null) {
-            this.router.navigate(['./dashboard']);
-          }
-        }
-      })
+    if(this.authService.isAuthenticated() == true) {
+      this.router.navigate(['./dashboard'])
+    }
   }
 
   loginWithEmail(formData) {
-    this.auth.loginWithEmail(formData);
+    this.authService.loginWithEmail(formData);
   }
 
   loginWithGoogle() {
-    this.auth.loginWithGoogle()
+    this.authService.loginWithGoogle()
     // .catch((err) => {
     //  this.error = err;
     // });

@@ -7,10 +7,14 @@ import {Observable} from 'rxjs/Observable';
 
 @Injectable()
 export class AuthService {
+  private authState: Observable<any> = null;
+  private isAuth: boolean;
   error: any;
   user;
 
-  constructor(private db: AngularFireDatabase, private afAuth: AngularFireAuth, private router: Router) {};
+  constructor(private db: AngularFireDatabase, private afAuth: AngularFireAuth, private router: Router) {
+    this.authState = this.afAuth.authState;
+  };
 
   // private handleError (error) {
   //   return Observable.throw(error.json());
@@ -73,8 +77,19 @@ export class AuthService {
     }
   }
 
-  isAuthenticated(): Observable<any> {
-    return this.afAuth.authState;
+  isAuthenticated(): boolean {
+    this.authState.subscribe((state) => {
+      if(state !== null) {
+        this.isAuth = true
+      } else {
+        this.isAuth = false
+      }
+    })
+    return this.isAuth;
+  }
+
+  getAuthState(): Observable<any> {
+    return this.authState;
   }
 
 }

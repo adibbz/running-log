@@ -1,11 +1,23 @@
-<app-header *ngIf="isLoggedIn"></app-header>
-<div class="container-fluid">
-  <div class="row">
-    <div *ngIf="isLoggedIn" class="hidden-xs col-sm-2 nopadding-left">
-      <app-sidebar></app-sidebar>
+<div *ngIf="!isLoggedIn">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-xs-12 col-sm-10 main clearfix col-centered">
+        <router-outlet></router-outlet>
+      </div>
     </div>
-    <div class="col-xs-12 col-sm-10 main clearfix" [ngClass]="{'col-centered': !isLoggedIn}">
-      <router-outlet></router-outlet>
+  </div>
+</div>
+
+<div *ngIf="isLoggedIn">
+  <app-header></app-header>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="hidden-xs col-sm-2 nopadding-left">
+        <app-sidebar></app-sidebar>
+      </div>
+      <div class="col-xs-12 col-sm-10 main clearfix">
+        <router-outlet></router-outlet>
+      </div>
     </div>
   </div>
 </div>

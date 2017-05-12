@@ -10,39 +10,29 @@ import * as firebase from 'firebase/app';
   styleUrls: ['./user-edit.component.scss']
 })
 export class UserEditComponent implements OnInit, OnDestroy {
-  user: Observable<firebase.User>;
+  user;
   password: string;
   confirmPassword: string;
-  public passwordObj;
+  public passwordObj: {password: string, confirmPassword: string};
   passwordMessage: boolean = false;
   errorMessage;
 
+
   constructor(private db: AngularFireDatabase, private afAuth: AngularFireAuth) {
-    this.user = afAuth.authState;
-
-  }
-
-  ngOnInit() {
-
-    this.passwordObj = {
-      password: '',
-      confirmPassword: ''
-    }
-
     this.afAuth.authState.subscribe(user => {
       if(user) {
-        //console.log(user)
-       // this.user = user.auth;
+        console.log(user)
+        this.user = user;
         const uid = user.uid;
         this.db.object(`/users/${uid}`)
-          .subscribe(users => {
-            //console.log(users);
-            //this.user.name = users.name;
-            //console.log(this.user);
+          .subscribe(user => {
+            this.user.name = user.name;
           });
       }
     });
-  }
+   }
+
+  ngOnInit() {}
 
   //updateYo() {
   //   // this.authState.auth.updateProfile({

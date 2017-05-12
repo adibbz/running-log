@@ -12,22 +12,17 @@ export class UserSignupComponent implements OnInit, OnDestroy {
   email: string;
   password: string;
 
-  constructor(public auth: AuthService, private router: Router) {}
+  constructor(public authService: AuthService, private router: Router) {}
 
   ngOnInit() {
     document.body.classList.add('login-bg');
-    this.auth.isAuthenticated()
-      .subscribe((user) => {
-        if(user) {
-          if(localStorage.getItem('loggedInUserName') !== null) {
-            this.router.navigate(['./dashboard']);
-          }
-        }
-      })
+    if(this.authService.isAuthenticated() == true) {
+      this.router.navigate(['./dashboard'])
+    }
   }
 
   onSubmit(formData) {
-    this.auth.register(formData)
+    this.authService.register(formData)
     // .catch((err) => {
     //    console.log(err);
     //    this.error = err;

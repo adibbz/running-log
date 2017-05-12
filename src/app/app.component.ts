@@ -9,20 +9,13 @@ import { Subscription } from 'rxjs/Subscription';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit{
-  private sub: Subscription;
   isLoggedIn: boolean = false;
 
   constructor(private authService: AuthService) {}
 
   ngOnInit() {
-    this.sub = this.authService.isAuthenticated().subscribe(authResp => {
-      if(authResp) {
-          if(localStorage.getItem('loggedInUserName') !== null) {
-            this.isLoggedIn = true
-          }
-      } else {
-        this.isLoggedIn = false;
-      }
-    });
+    this.isLoggedIn = this.authService.isAuthenticated();
+    console.log(this.authService.isAuthenticated());
   }
+
 }
