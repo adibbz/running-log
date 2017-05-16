@@ -8,14 +8,14 @@ import { Subscription } from 'rxjs/Subscription';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit{
+export class AppComponent implements OnInit {
   isLoggedIn: boolean = false;
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService) { }
 
   ngOnInit() {
+    //console.log(this.authService.isAuthenticated())
     this.isLoggedIn = this.authService.isAuthenticated();
-    console.log(this.authService.isAuthenticated());
   }
 
 }

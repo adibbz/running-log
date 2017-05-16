@@ -3,7 +3,10 @@ import { Router } from '@angular/router';
 import {AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database';
 import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase/app';
-import {Observable} from 'rxjs/Observable';
+import { Observable } from 'rxjs/Rx';
+import 'rxjs/add/operator/do';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/take';
 
 @Injectable()
 export class AuthService {
@@ -14,6 +17,11 @@ export class AuthService {
 
   constructor(private db: AngularFireDatabase, private afAuth: AngularFireAuth, private router: Router) {
     this.authState = this.afAuth.authState;
+    this.authState.subscribe(user => {
+      if(user) {
+         localStorage.setItem('UserToken', 'true');
+      }
+    })
   };
 
   // private handleError (error) {
@@ -25,7 +33,8 @@ export class AuthService {
       this.afAuth.auth.signInWithEmailAndPassword(formData.value.email,formData.value.password)
       .then((success) => {
         localStorage.setItem('loggedInUserName', success.displayName);
-        this.router.navigate(['/dashboard']);
+        //this.router.navigate(['/dashboard']);
+        window.location.href = '/dashboard';
       }).catch((err) => {
         alert(err.message);
         //this.handleError(err);
@@ -42,7 +51,8 @@ export class AuthService {
             name: success.user.displayName
         });
         localStorage.setItem('loggedInUserName', success.user.displayName);
-        this.router.navigate(['/dashboard']);
+        //this.router.navigate(['/dashboard']);
+        window.location.href = '/dashboard';
       }).catch((err) => {
         console.log(err)
         this.error = err;
@@ -54,7 +64,9 @@ export class AuthService {
       .then((success) => {
         // console.log(success);
         localStorage.removeItem('loggedInUserName');
-        this.router.navigate(['/login']);
+        localStorage.removeItem('UserToken');
+        //this.router.navigate(['/login']);
+        window.location.href = '/login';
       })
   }
 
@@ -78,14 +90,10 @@ export class AuthService {
   }
 
   isAuthenticated(): boolean {
-    this.authState.subscribe((state) => {
-      if(state !== null) {
-        this.isAuth = true
-      } else {
-        this.isAuth = false
-      }
-    })
-    return this.isAuth;
+    if(localStorage.getItem('UserToken')) {
+      return true
+    }
+    return false
   }
 
   getAuthState(): Observable<any> {

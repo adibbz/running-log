@@ -35,6 +35,20 @@ i {
   }
 }
 
+.col-centered {
+  float: none;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.nopadding-left {
+  padding-left: 0;
+}
+
+.main {
+  padding: 25px 15px;
+}
+
 /*--------------------------------
 | Login Page
 --------------------------------*/
