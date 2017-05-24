@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
+import 'moment-duration-format';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
@@ -17,7 +18,10 @@ import { DropdownDirective } from './shared/dropdown.directive';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { UserEditComponent } from './user/user-edit/user-edit.component';
 import { ValidateEqualDirective } from './shared/validateEqual.directive';
+import { RunService } from './runs/run.service';
 
+import { BootstrapModalModule } from 'ng2-bootstrap-modal';
+import { ConfirmComponent } from './shared/confirm.component';
 
 // AngularFire Config
 import { AngularFireModule } from 'angularfire2';
@@ -56,18 +60,23 @@ const appRoutes: Routes = [
     DropdownDirective,
     SidebarComponent,
     UserEditComponent,
-    ValidateEqualDirective
+    ValidateEqualDirective,
+    ConfirmComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
+    BootstrapModalModule,
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFireDatabaseModule,
     AngularFireAuthModule,
     RouterModule.forRoot(appRoutes)
   ],
-  providers: [AuthService, AuthGuard],
+  providers: [AuthService, AuthGuard, RunService],
+  entryComponents: [
+    ConfirmComponent
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

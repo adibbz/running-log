@@ -17,9 +17,8 @@ export class UserEditComponent implements OnInit {
   email: string;
   password: string;
   confirmPassword: string;
-  public passwordObj: {password: string, confirmPassword: string};
   passwordMessage: boolean = false;
-  errorMessage;
+  errorMessage: string;
 
 
   constructor(private authService: AuthService, private db: AngularFireDatabase) {
@@ -68,18 +67,17 @@ export class UserEditComponent implements OnInit {
     }
   }
 
-  // updatePassword(newPassword, isValid: boolean){
-  //   console.log(newPassword.password, isValid);
+  updatePassword(newPassword, isValid: boolean){
+    this.auth.updatePassword(newPassword.password).then(function() {
+      // Update successful.
+      //this.passwordMessage = true;
+      alert("Password updated!")
+    }, function(err) {
+      // An error happened.
+      alert(err.message);
+      //this.errorMessage = err.message;
+    });
 
-  //   this.afAuth.auth.updatePassword(newPassword.password).then(function() {
-  //     // Update successful.
-  //     this.passwordMessage = true;
-  //   }, function(err) {
-  //     // An error happened.
-  //     console.log(err.message);
-  //     this.errorMessage = err.message;
-  //   });
-
-  // }
+  }
 
 }
