@@ -4,16 +4,16 @@
       <h3 class="panel-title">Log In</h3>
     </div>
     <div class="panel-body">
+      <alert></alert>
       <form #formData='ngForm' (ngSubmit)="loginWithEmail(formData)">
         <fieldset>
-          <p class="error text-danger" *ngIf="error">{{ error }}</p>
           <div class="form-group">
             <input class="form-control" placeholder="yourmail@example.com" [(ngModel)]="email" name="email" type="text" required>
           </div>
           <div class="form-group">
             <input class="form-control" placeholder="Password" [(ngModel)]="password" name="password" type="password" value="" required>
           </div>
-          <button ype="submit" [disabled]="!formData.valid" class="btn btn-lg btn-success btn-block">Login</button>
+          <button ype="submit" [disabled]="!formData.valid" class="btn btn-lg btn-primary btn-block">Login</button>
         </fieldset>
       </form>
       <span class="line"></span>

@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from '../../auth.service';
+import { AuthService } from '../../services/index';
+
 import {Observable} from 'rxjs/Observable';
 
 @Component({
@@ -10,11 +11,10 @@ import {Observable} from 'rxjs/Observable';
 })
 export class UserLoginComponent implements OnInit, OnDestroy {
   user = {};
-  error: any;
   email: string;
   password: string;
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private authService: AuthService, private router: Router) {  }
 
   ngOnInit() {
     document.body.classList.add('login-bg');
@@ -28,10 +28,7 @@ export class UserLoginComponent implements OnInit, OnDestroy {
   }
 
   loginWithGoogle() {
-    this.authService.loginWithGoogle()
-    // .catch((err) => {
-    //  this.error = err;
-    // });
+    this.authService.loginWithGoogle();
   }
 
   ngOnDestroy() {

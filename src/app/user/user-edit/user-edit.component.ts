@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { AuthService } from '../../auth.service';
+import { AuthService } from '../../services/index';
 import { AngularFireDatabase, FirebaseObjectObservable } from 'angularfire2/database';
 import { User } from '../user.model';
 import * as firebase from 'firebase/app';
@@ -12,11 +12,7 @@ import * as firebase from 'firebase/app';
 })
 export class UserEditComponent implements OnInit {
   auth;
-  user: User = new User();
-  name: string;
-  email: string;
-  password: string;
-  confirmPassword: string;
+  user: User = new User;
   passwordMessage: boolean = false;
   errorMessage: string;
 
@@ -34,6 +30,8 @@ export class UserEditComponent implements OnInit {
         this.user.photoURL = user.photoURL;
         this.user.email = user.email;
         this.user.uid = user.uid;
+        this.user.password = '';
+        this.user.confirmPassword = '';
         this.db.object(`/users/${this.user.uid}`)
           .subscribe(user => {
             this.user.name = user.name;

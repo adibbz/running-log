@@ -1,0 +1,6 @@
+<div *ngIf="message" [ngClass]="{ 'alert': message, 'alert-success': message.type === 'success', 'alert-danger': message.type === 'error' }">
+      <div class="clearfix">
+        <i [ngClass]="{'icon-check': message.type === 'success', 'icon-ban': message.type === 'error' }"></i>
+        <p>{{message.text}}</p>
+      </div>
+</div>

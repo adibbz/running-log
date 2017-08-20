@@ -7,6 +7,9 @@ import { Observable } from 'rxjs/Rx';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/take';
+import { AlertService } from './alert.service';
+
+
 
 @Injectable()
 export class AuthService {
@@ -15,29 +18,33 @@ export class AuthService {
   error: any;
   user;
 
-  constructor(private db: AngularFireDatabase, private afAuth: AngularFireAuth, private router: Router) {
+  constructor(
+    private db: AngularFireDatabase,
+    private afAuth: AngularFireAuth,
+    private router: Router,
+    private alertService: AlertService)
+  {
     this.authState = this.afAuth.authState;
-    this.authState.subscribe(user => {
-      if(user) {
-         localStorage.setItem('UserToken', 'true');
-      }
-    })
+    // this.authState.subscribe(user => {
+    //   if(user) {
+    //      //localStorage.setItem('UserToken', 'true');
+    //   }
+    // })
   };
 
-  // private handleError (error) {
-  //   return Observable.throw(error.json());
-  // }
+  private handleError(error) {
+    return Observable.throw(error.json());
+  }
 
   loginWithEmail(formData) {
     if(formData.valid) {
       this.afAuth.auth.signInWithEmailAndPassword(formData.value.email,formData.value.password)
       .then((success) => {
         localStorage.setItem('loggedInUserName', success.displayName);
-        //this.router.navigate(['/dashboard']);
+        localStorage.setItem('UserToken', 'true');
         window.location.href = '/dashboard';
       }).catch((err) => {
-        alert(err.message);
-        //this.handleError(err);
+        this.alertService.error(err.message);
       })
     }
   }
@@ -54,8 +61,7 @@ export class AuthService {
         //this.router.navigate(['/dashboard']);
         window.location.href = '/dashboard';
       }).catch((err) => {
-        console.log(err)
-        this.error = err;
+        this.alertService.error(err.message);
       })
   }
 
@@ -77,14 +83,10 @@ export class AuthService {
           this.db.object(`/users/${user.uid}`).update({
             name: formData.value.name
           });
-          this.router.navigate(['./login']);
+          this.logout();
       })
-      .catch(function(error) {
-        // Handle Errors here.
-        //var errorCode = error.code;
-        var errorMessage = error.message;
-        alert(errorMessage);
-        // ...
+      .catch((err) => {
+        this.alertService.error(err.message);
       })
     }
   }

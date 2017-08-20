@@ -1,113 +1,180 @@
 /* You can add global styles to this file, and also import other style files */
 
 html {
-  height: 100%;
+    height: 100%;
 }
 
 body {
     height: 100%;
     font-weight: 300;
-
-  &.login-bg {
-    background-image: url('https://images.unsplash.com/photo-1457470572216-1240fac24b37');
-    background-image: url('https://images.unsplash.com/photo-1436380138417-a2dcbd582f35?dpr=1&auto=format&fit=crop&w=1500&h=1125&q=80&cs=tinysrgb&crop=&bg=');
-    background-size: cover;
-  }
-
-  a {
-
-    &:hover {
-      text-decoration: none;
+    &.login-bg {
+        background-image: url('https://images.unsplash.com/photo-1457470572216-1240fac24b37');
+        background-image: url('https://images.unsplash.com/photo-1436380138417-a2dcbd582f35?dpr=1&auto=format&fit=crop&w=1500&h=1125&q=80&cs=tinysrgb&crop=&bg=');
+        background-repeat: no-repeat;
+        background-size: cover;
     }
-  }
+    a {
+        &:hover {
+            text-decoration: none;
+        }
+    }
 }
 
 .btn {
-  border-radius: 0;
   font-weight: 300;
-}
+  text-transform: uppercase;
 
-i {
+  &.btn-primary {
+    padding: 8px 24px;
+    letter-spacing: 2px;
+    background-color: #45ca58;
+    border-color: #45ca58;
 
-  &.iw {
-    width: 2em;
-    display: inline-block;
+    &:hover {
+      background: darken(#45ca58, 0.5);
+    }
+
+    &:focus {
+      background-color: #45ca58;
+      border-color: #45ca58;
+    }
+  }
+
+  &.btn-lg {
+    border-radius: 0;
   }
 }
 
+i {
+    &.iw {
+        width: 2em;
+        display: inline-block;
+    }
+}
+
 .col-centered {
-  float: none;
-  margin-right: auto;
-  margin-left: auto;
+    float: none;
+    margin-right: auto;
+    margin-left: auto;
 }
 
 .nopadding-left {
-  padding-left: 0;
+    padding-left: 0 !important;
+}
+
+.nopadding-right {
+    padding-right: 0 !important;
 }
 
 .main {
-  padding: 25px 15px;
+    padding: 25px 15px;
 }
 
 .clickable {
-  cursor: pointer;
+    cursor: pointer;
 }
+
+.alert {
+    i {
+        float: left;
+        margin-right: 8px;
+        clear: both;
+    }
+    p {
+        margin: 0;
+        overflow: auto;
+        display: block;
+    }
+    &.alert-danger {
+        background: #d50000;
+        color: #fff;
+        line-height: 1;
+        border: 0;
+    }
+}
+
 
 /*--------------------------------
 | Login Page
 --------------------------------*/
+
 .login-register-panel {
-  border: 0;
-  border-radius: 3px;
-  background: rgba(0,0,0,0.7);
-
-  a {
-    color: #fff;
-  }
-
-  .panel-heading {
-    background: rgba(0,0,0,0.55);
-    padding: 20px;
     border: 0;
-
-    h3 {
-      color: #fff;
-      text-align: center;
-      font-size: 1.5em;
-      font-weight: 300;
-    }
-  }
-
-  .panel-body {
-    padding: 35px;
-    color: #fff;
-
-    form {
-
-      .form-control {
-        background: transparent;
+    border-radius: 3px;
+    background: rgba(0, 0, 0, 0.7);
+    a {
         color: #fff;
+    }
+    .panel-heading {
+        background: rgba(0, 0, 0, 0.55);
+        padding: 20px;
         border: 0;
-        border-radius: 0;
-        border-bottom: 1px solid #fff;
-
-        &:focus {
-          outline-color: none;
-          box-shadow: none;
+        h3 {
+            color: #fff;
+            text-align: center;
+            font-size: 1.5em;
+            font-weight: 300;
         }
+    }
+    .panel-body {
+        padding: 35px;
+        color: #fff;
+        form {
+            .form-control {
+                background: transparent;
+                color: #fff;
+                border: 0;
+                border-radius: 0;
+                border-bottom: 1px solid #fff;
+                &:focus {
+                    outline-color: none;
+                    box-shadow: none;
+                }
+                &:-webkit-autofill {
+                    box-shadow: none;
+                    -webkit-box-shadow: 0 0 0px 1000px white inset; //-webkit-text-fill-color: transparent !important;
+                }
+            }
+        }
+        .or-text {
+            margin: 15px 0;
+            font-weight: 300;
+        }
+    }
+}
 
-        &:-webkit-autofill {
-            box-shadow: none;
-            -webkit-box-shadow: 0 0 0px 1000px white inset;
-            //-webkit-text-fill-color: transparent !important;
+.navbar-default {
+  background: #262930;
+
+  .navbar-nav {
+
+    li {
+
+      a {
+        color: #8a8c98;
+
+        &:hover {
+          color: #8a8c98 !important;
         }
       }
     }
-
-    .or-text {
-      margin: 15px 0;
-      font-weight: 300;
-    }
   }
 
+  .sidebar-nav {
+
+    li {
+
+      a {
+        color: #8a8c98;
+
+        i {
+          margin-right: 8px;
+        }
+
+        &:hover, &:focus {
+          background: transparent;
+        }
+      }
+    }
+  }
 }

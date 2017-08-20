@@ -1,0 +1,17 @@
+.show {
+  display: block !important;
+  opacity: 1 !important;
+  overflow: visible;
+  background: rgba(0,0,0,0.6);
+
+  .modal-dialog {
+    top: 30%;
+  }
+}
+
+.buttons {
+  border-top: 1px solid #efefef;
+  padding-top: 15px;
+  margin: 0;
+  text-align: right;
+}

@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
+import { AlertModule } from './shared/alert/alert.module';
 import 'moment-duration-format';
 
 import { AppComponent } from './app.component';
@@ -12,21 +13,19 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 
 import { RouterModule, Routes } from '@angular/router';
 import { UserSignupComponent } from './user/user-signup/user-signup.component';
-import { AuthService } from './auth.service';
 import { AuthGuard } from './auth.guard';
 import { DropdownDirective } from './shared/dropdown.directive';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { UserEditComponent } from './user/user-edit/user-edit.component';
 import { ValidateEqualDirective } from './shared/validateEqual.directive';
-import { RunService } from './runs/run.service';
 
-import { BootstrapModalModule } from 'ng2-bootstrap-modal';
-import { ConfirmComponent } from './shared/confirm.component';
+import { AuthService, RunService, AlertService } from './services/index';
 
 // AngularFire Config
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
+import { RunAddComponent } from './runs/run-add/run-add.component';
 
 export const firebaseConfig = {
   apiKey: 'AIzaSyCbT3gX5SlbnnjdsOAiZQb4ADPSqBqBK4A',
@@ -61,22 +60,25 @@ const appRoutes: Routes = [
     SidebarComponent,
     UserEditComponent,
     ValidateEqualDirective,
-    ConfirmComponent
+    RunAddComponent,
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
-    BootstrapModalModule,
+    AlertModule,
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFireDatabaseModule,
     AngularFireAuthModule,
     RouterModule.forRoot(appRoutes)
   ],
-  providers: [AuthService, AuthGuard, RunService],
-  entryComponents: [
-    ConfirmComponent
+  providers: [
+    AuthService,
+    AuthGuard,
+    RunService,
+    AlertService
   ],
+  entryComponents: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

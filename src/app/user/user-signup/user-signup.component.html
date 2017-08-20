@@ -6,7 +6,7 @@
     <div class="panel-body">
       <div class="form-container">
 
-        <p class="error text-danger" *ngIf="error">{{ error }}</p>
+        <alert></alert>
 
         <form #formData='ngForm' (ngSubmit)="onSubmit(formData)">
 
@@ -20,7 +20,7 @@
             <input type="password" placeholder="Password" [(ngModel)]="password" name="password" class="form-control" required>
           </div>
 
-          <button type="submit" [disabled]="!formData.valid" class="btn btn-lg btn-success btn-block">Create my account</button>
+          <button type="submit" [disabled]="!formData.valid" class="btn btn-lg btn-primary btn-block">Create my account</button>
         </form>
         <hr/>
         <p class="text-center"><a routerLink="/login" id="goback"><i class="icon-arrow-left-circle iw"></i>Go back</a></p>
